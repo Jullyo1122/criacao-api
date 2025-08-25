@@ -1,10 +1,8 @@
 from product import Movies
+import json
 
 def generate_movies():
-    list_movies = []
-
-    for i in range(10):
-        m = Movies(title = f"Filme {i + 1}", year = 1990 + i)
-        list_movies.append(m)
-
-    return list_movies
+    f = open ('./data/product.json')
+    data = json.loads(f.read())
+    f.close()
+    return data

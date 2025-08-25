@@ -1,10 +1,18 @@
 from fastapi import FastAPI
-
-from indb import generate_movies
+from json_db import JsonDB
+from product import Movies
 
 app = FastAPI()
 
-filmes = generate_movies()
+productDB = JsonDB(path='./data/product.json')
 @app.get("/")
 def get_movies():
+    filmes = productDB.read()
     return { "Filmes" : filmes }
+@app.post("/")
+def create_movies(product: Movies):
+
+    productDB.insert(product)
+
+    return { "Status" : "Inserted" }
+
